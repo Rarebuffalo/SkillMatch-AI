@@ -2,8 +2,19 @@ import json
 import math
 import os
 import re
+from pathlib import Path
 
-CATALOG_PATH = "/home/Krishna-Singh/Downloads/shl_product_catalog.json"
+
+# Resolve catalog path relative to project root at data/shl_product_catalog.json
+BASE_DIR = Path(__file__).resolve().parent.parent
+CATALOG_PATH = str(BASE_DIR / "data" / "shl_product_catalog.json")
+if not os.path.exists(CATALOG_PATH):
+    # Search root folder fallback
+    CATALOG_PATH = "shl_product_catalog.json"
+    if not os.path.exists(CATALOG_PATH):
+        CATALOG_PATH = "/home/Krishna-Singh/Downloads/shl_product_catalog.json"
+
+
 
 class BM25Search:
     def __init__(self, corpus_docs, b=0.75, k1=1.5):

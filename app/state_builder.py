@@ -1,9 +1,19 @@
 import re
 import os
 import json
+from pathlib import Path
 from app.schemas import ConversationState
 
-CATALOG_PATH = "/home/Krishna-Singh/Downloads/shl_product_catalog.json"
+# Resolve catalog path relative to project root at data/shl_product_catalog.json
+BASE_DIR = Path(__file__).resolve().parent.parent
+CATALOG_PATH = str(BASE_DIR / "data" / "shl_product_catalog.json")
+if not os.path.exists(CATALOG_PATH):
+    # Search root folder fallback
+    CATALOG_PATH = "shl_product_catalog.json"
+    if not os.path.exists(CATALOG_PATH):
+        CATALOG_PATH = "/home/Krishna-Singh/Downloads/shl_product_catalog.json"
+
+
 _catalog_names = []
 
 def _get_catalog_names():
