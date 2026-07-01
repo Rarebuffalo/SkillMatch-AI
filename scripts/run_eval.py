@@ -11,7 +11,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from app.agent import Agent
 from app.schemas import Message
 
-TRACES_DIR = "/home/Krishna-Singh/Downloads/GenAI_SampleConversations"
+TRACES_DIR = "GenAI_SampleConversations"
+if not os.path.exists(TRACES_DIR):
+    TRACES_DIR = "/home/Krishna-Singh/Downloads/GenAI_SampleConversations"
+
 
 def parse_trace_file(file_path):
     """
